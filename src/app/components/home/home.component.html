@@ -1,0 +1,165 @@
+<button class="btn btn-primary pull-right" (click)="logout()" style="cursor: pointer">LogOut</button>
+<br><br><br>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th width="20px">Star</th>
+    <th>Name</th>
+    <th>CoordinateX</th>
+    <th>CoordinateY</th>
+    <th>Category</th>
+    <th>Discoverer</th>
+    <th>Edition</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let element of stars;">
+    <td width="20px"><i class="fa fa-star fa-lg icon-a" [style.color]="colors[element.categoryId]"></i></td>
+    <td>{{element.name}}</td>
+    <td>{{element.coorX}}</td>
+    <td>{{element.coorY}}</td>
+    <td>{{element.category}}</td>
+    <td>{{element.discovererFirstName + ' ' + element.discovererLastName}}</td>
+    <td>
+      <i class="fa fa-pencil fa-lg" (click)="callChangeModal(element)"></i>
+      <i class="fa fa-trash-o fa-lg" (click)="deleteStar(element)"></i></td>
+  </tr>
+  </tbody>
+</table>
+
+<button class="btn btn-success pull-right" (click)="callAddModal()">add</button>
+
+
+
+
+<!--changing star-->
+
+<div class="container">
+
+  <!-- The Modal -->
+  <div class="modal fade" id="ChangeModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title" style="margin: 0 auto">Changeing Modal</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body modal-input">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12 col-md-12">
+                Discoverer
+                <select (change)="selectTest($event.target.value, 'discovererId')" value="{{changeStars.discovererId}}">
+                  <option *ngFor="let author of authors;" value="{{author.id}}">{{author.firstName + ' ' + author.lastName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row addNewAuthor" style="display: none; margin-top: 5px">
+              <div class="col-lg-6 col-md-6"><input placeholder="First Name" [(ngModel)]="newAuthor.firstName" style="border-color: red" required></div>
+              <div class="col-lg-6 col-md-6"><input placeholder="Last Name" [(ngModel)]="newAuthor.lastName" style="border-color: red; width: 93%" required><i (click)="addNewAuthorCancell()" class="fa fa-times"></i></div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6">Name <input value="{{changeStars.name}}" [(ngModel)]="changeStars.name"></div>
+              <div class="col-lg-6 col-md-6">Category
+                <select (change)="selectTest($event.target.value, 'categoryId')" value="{{changeStars.categoryId}}">
+                <option *ngFor="let cat of categories;" value="{{cat.id}}">{{cat.name}}</option>
+              </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6">CoordX <input value="{{changeStars.coorX}}" [(ngModel)]="changeStars.coorX"></div>
+              <div class="col-lg-6 col-md-6">CoordY <input value="{{changeStars.coorY}}" [(ngModel)]="changeStars.coorY"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="getTableInfo()" data-dismiss="modal" style="width: 33%">Cancel</button>
+            <button type="button" class="btn btn-info addNewBtn" (click)="addNewAuthorBtns()" style="width: 33%">Add new author</button>
+            <button type="button" class="btn btn-info submitDiscovererBtn" (click)="addAuthor()" style="width: 33%; display: none">Submit Author</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="changeStarMethod()" style="width: 33%">Save</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!--adding new star-->
+<div class="container">
+
+  <!-- The Modal -->
+  <div class="modal fade" id="addModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title" style="margin: 0 auto">Add Modal</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body modal-input">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12 col-md-12">
+                Discoverer
+                <select (change)="selectTest($event.target.value, 'discovererId')" value="{{changeStars.discovererId}}">
+                  <option>Choose Discoverer</option>
+                  <option *ngFor="let author of authors;" value="{{author.id}}">{{author.firstName + ' ' + author.lastName}}</option>
+                </select>
+                <!--<select style="width: 100%; height: 35px; text-align: center; border-radius: 5px;">
+              </select>-->
+              </div>
+            </div>
+            <div class="row addNewAuthor" style="display: none; margin-top: 5px">
+              <div class="col-lg-6 col-md-6">
+                <input placeholder="First Name" [(ngModel)]="newAuthor.firstName" style="border-color: red;" required>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <input placeholder="Last Name" [(ngModel)]="newAuthor.lastName" style="border-color: red; width: 93%" required>
+                <i (click)="addNewAuthorCancell()" class="fa fa-times"></i>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6">Name
+                <input value="{{changeStars.name}}" [(ngModel)]="changeStars.name">
+              </div>
+              <div class="col-lg-6 col-md-6">Category
+                <select (change)="selectTest($event.target.value, 'categoryId')" value="{{changeStars.categoryId}}">
+                  <option>Choose Category</option>
+                  <option *ngFor="let cat of categories;" value="{{cat.id}}">{{cat.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6">CoordX
+                <input value="{{changeStars.coorX}}" [(ngModel)]="changeStars.coorX">
+              </div>
+              <div class="col-lg-6 col-md-6">CoordY
+                <input value="{{changeStars.coorY}}" [(ngModel)]="changeStars.coorY">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="getTableInfo()" data-dismiss="modal" style="width: 33%">Cancel</button>
+          <button type="button" class="btn btn-info addNewBtn" (click)="addNewAuthorBtns()" style="width: 33%">Add new discoverer</button>
+          <button type="button" class="btn btn-info submitDiscovererBtn" (click)="addAuthor()" style="width: 33%; display: none">Save disc.</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addStar()" style="width: 33%">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
