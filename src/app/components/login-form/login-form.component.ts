@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {LoginizationService} from "../../services/loginizationService/loginization.service";
-import {HttpHeaders} from "@angular/common/http";
+import {LoginizationService} from '../../services/loginizationService/loginization.service';
 
 @Component({
   selector: 'app-login-form',
@@ -22,8 +21,6 @@ export class LoginFormComponent implements OnInit {
   ngOnInit() {
   }
   login() {
-
     this.loginService.login(this.loginInfo.login, this.loginInfo.password);
-
   }
 }
