@@ -4,8 +4,6 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Http, Headers, Response, RequestOptions} from '@angular/http';
 import {Router} from "@angular/router";
-import {LoginizationService} from "../loginizationService/loginization.service";
-import {LoginFormComponent} from "../../components/login-form/login-form.component";
 import {RequestOptionsArgs} from '@angular/http/src/interfaces';
 
 /**
@@ -19,10 +17,9 @@ export class HttpService {
     'Access-Control-Allow-Origin': '*',
     'Authorization': 'Basic ZWxkb3M6cGFzc3dvcmQ='
   };
-  token;
   private _options = new RequestOptions({headers: new Headers(this._headers)});
 
-  get(url:string, options?: RequestOptionsArgs):Observable<Response> {
+  get(url: string, options?: RequestOptionsArgs):Observable<Response> {
     if (options != null) {
       return this.http.get(url,options);
     }

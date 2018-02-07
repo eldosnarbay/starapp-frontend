@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {LoginizationService} from "../../services/loginizationService/loginization.service";
 import {HomeService} from "../../services/homeService/home.service";
 import {HttpService} from "../../services/httpService/http.service";
 declare let $: any;
@@ -58,8 +57,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private router: Router,
               private homeService: HomeService,
-              private httpService: HttpService,
-              private loginService: LoginizationService) {
+              private httpService: HttpService) {
     this.getTableInfo();
     this.getCategories();
     this.getAuthors();
