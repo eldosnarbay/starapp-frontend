@@ -29,13 +29,14 @@ export class HomeService {
   }
 
   async changeStar(newStar) {
-    return await this.httpService.post(this.baseUrl.baseUrl + 'stars/update/' + newStar.id, JSON.stringify(newStar)).map((response:Response)=> {
+    return await this.httpService.post(this.baseUrl.baseUrl + 'stars/update/' + newStar.id, JSON.stringify(newStar))
+      .map((response: Response) => {
       return response;
     }).toPromise();
   }
 
   async addAuthor(newAuthor) {
-    return await this.httpService.post(this.baseUrl.baseUrl + 'discoverers/insert', JSON.stringify(newAuthor)).map((response:Response)=> {
+    return await this.httpService.post(this.baseUrl.baseUrl + 'discoverers/insert', JSON.stringify(newAuthor)).map((response: Response) => {
       return response;
     }).toPromise();
   }

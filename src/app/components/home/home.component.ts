@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
     lastName: ''
   };
 
-  public colors:any = ['asd', 'blue', '#ccffff', 'white', '#ffff99', 'yellow', '#ffa500', 'red'];
+  public colors:any = ['', '#136fa0', '#0ccec4', 'white', '#e8e855', 'yellow', '#bc5e0b', 'red'];
 
   constructor(private router: Router,
               private homeService: HomeService,
@@ -124,10 +124,14 @@ export class HomeComponent implements OnInit {
   }
 
   changeStarMethod() {
-    //console.log(this.changeStars);
+    if (!this.validateInput()) {
+      return;
+    }
+
     let promise = this.homeService.changeStar(this.changeStars);
     promise.then((data) => {
       this.getTableInfo();
+      $('#ChangeModal').modal('hide');
     });
   }
 
@@ -155,7 +159,7 @@ export class HomeComponent implements OnInit {
   }
 
   addAuthor() {
-    if(this.newAuthor.firstName == '' || !this.newAuthor.firstName){
+    if (this.newAuthor.firstName === '' || !this.newAuthor.firstName){
       alert('Enter the firstName');
       return;
     }
@@ -180,14 +184,23 @@ export class HomeComponent implements OnInit {
 
 
   addStar() {
+    if (!this.validateInput()) {
+      return;
+    }
     let promise = this.homeService.addStar(this.changeStars);
     promise.then((data) => {
       this.getTableInfo();
+      $('#addModal').modal('hide');
     });
   }
 
   deleteStar(a) {
-    if(!confirm("Are you sure?")){
+    console.log(a);
+    if (a.category === 'Желтая') {
+      alert('Нельзя удалять желтые звезды');
+      return;
+    }
+    if (!confirm('Вы действительно хотите удалить звезду?')) {
       return;
     }
     let promise = this.homeService.deleteStar(a.id);
@@ -200,4 +213,31 @@ export class HomeComponent implements OnInit {
     this.httpService.removeHeader('Authorization');
     this.router.navigate(['/']);
   }
+
+  // helper
+  private validateInput(): boolean {
+    if (!this.changeStars.hasOwnProperty('name') || this.changeStars.name === '') {
+      $('#error_message').text('Введите имя звезды');
+      return false;
+    }
+    if (!this.changeStars.hasOwnProperty('categoryId') || this.changeStars.categoryId === '') {
+      $('#error_message').text('Выберите категорию');
+      return false;
+    }
+    if (!this.changeStars.hasOwnProperty('discovererId') || this.changeStars.discovererId === '') {
+      $('#error_message').text('Выберите окрывателя');
+      return false;
+    }
+    if (!this.changeStars.hasOwnProperty('coorX') || this.changeStars.coorX === '') {
+      $('#error_message').html('Введите координаты');
+      return false;
+    }
+    if (!this.changeStars.hasOwnProperty('coorY') || this.changeStars.coorY === '') {
+      $('#error_message').html('Введите координаты');
+      return false;
+    }
+    $('#error_message').html('');
+    return true;
+  }
 }
+

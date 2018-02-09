@@ -1,15 +1,15 @@
-<button class="btn btn-primary pull-right" (click)="logout()" style="cursor: pointer">LogOut</button>
+<button class="btn btn-primary pull-right" (click)="logout()" style="cursor: pointer">Выйти</button>
 <br><br><br>
 <table class="table table-hover">
   <thead>
   <tr>
-    <th width="20px">Star</th>
-    <th>Name</th>
-    <th>CoordinateX</th>
-    <th>CoordinateY</th>
-    <th>Category</th>
-    <th>Discoverer</th>
-    <th>Edition</th>
+    <th width="20px"></th>
+    <th>Названия</th>
+    <th>Координаты X</th>
+    <th>Координаты Y</th>
+    <th>Категория</th>
+    <th>Открыватель</th>
+    <th>Управления</th>
   </tr>
   </thead>
   <tbody>
@@ -27,7 +27,7 @@
   </tbody>
 </table>
 
-<button class="btn btn-success pull-right" (click)="callAddModal()">add</button>
+<button class="btn btn-success pull-right" (click)="callAddModal()">Добавить</button>
 
 
 
@@ -43,7 +43,7 @@
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title" style="margin: 0 auto">Changeing Modal</h4>
+          <h4 class="modal-title" style="margin: 0 auto">Изменить</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
@@ -52,37 +52,37 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-lg-12 col-md-12">
-                Discoverer
+                Открыватель
                 <select (change)="selectTest($event.target.value, 'discovererId')" value="{{changeStars.discovererId}}">
                   <option *ngFor="let author of authors;" value="{{author.id}}">{{author.firstName + ' ' + author.lastName}}</option>
                 </select>
               </div>
             </div>
             <div class="row addNewAuthor" style="display: none; margin-top: 5px">
-              <div class="col-lg-6 col-md-6"><input placeholder="First Name" [(ngModel)]="newAuthor.firstName" style="border-color: red" required></div>
-              <div class="col-lg-6 col-md-6"><input placeholder="Last Name" [(ngModel)]="newAuthor.lastName" style="border-color: red; width: 93%" required><i (click)="addNewAuthorCancell()" class="fa fa-times"></i></div>
+              <div class="col-lg-6 col-md-6"><input placeholder="Имя" [(ngModel)]="newAuthor.firstName" style="border-color: red" required></div>
+              <div class="col-lg-6 col-md-6"><input placeholder="Фамилия" [(ngModel)]="newAuthor.lastName" style="border-color: red; width: 93%" required><i (click)="addNewAuthorCancell()" class="fa fa-times"></i></div>
             </div>
             <div class="row">
               <div class="col-lg-6 col-md-6">Name <input value="{{changeStars.name}}" [(ngModel)]="changeStars.name"></div>
-              <div class="col-lg-6 col-md-6">Category
+              <div class="col-lg-6 col-md-6">Категория
                 <select (change)="selectTest($event.target.value, 'categoryId')" value="{{changeStars.categoryId}}">
                 <option *ngFor="let cat of categories;" value="{{cat.id}}">{{cat.name}}</option>
               </select>
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-6 col-md-6">CoordX <input value="{{changeStars.coorX}}" [(ngModel)]="changeStars.coorX"></div>
-              <div class="col-lg-6 col-md-6">CoordY <input value="{{changeStars.coorY}}" [(ngModel)]="changeStars.coorY"></div>
+              <div class="col-lg-6 col-md-6">Координаты  X<input value="{{changeStars.coorX}}" [(ngModel)]="changeStars.coorX" required></div>
+              <div class="col-lg-6 col-md-6">Координаты  Y<input value="{{changeStars.coorY}}" [(ngModel)]="changeStars.coorY" required></div>
             </div>
           </div>
         </div>
 
         <!-- Modal footer -->
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger" (click)="getTableInfo()" data-dismiss="modal" style="width: 33%">Cancel</button>
-            <button type="button" class="btn btn-info addNewBtn" (click)="addNewAuthorBtns()" style="width: 33%">Add new author</button>
-            <button type="button" class="btn btn-info submitDiscovererBtn" (click)="addAuthor()" style="width: 33%; display: none">Save Author</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="changeStarMethod()" style="width: 33%">Save</button>
+            <button type="button" class="btn btn-danger" (click)="getTableInfo()" data-dismiss="modal" style="width: 33%">Отмена</button>
+            <button type="button" class="btn btn-info addNewBtn" (click)="addNewAuthorBtns()" style="width: 33%">Добавить автора</button>
+            <button type="button" class="btn btn-info submitDiscovererBtn" (click)="addAuthor()" style="width: 33%; display: none">Сохранить автора</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="changeStarMethod()" style="width: 33%">Сохранить</button>
         </div>
 
       </div>
@@ -102,7 +102,7 @@
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title" style="margin: 0 auto">Add Modal</h4>
+          <h4 class="modal-title" style="margin: 0 auto">Добавить звезду</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
@@ -111,52 +111,53 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-lg-12 col-md-12">
-                Discoverer
+                Открыватель
                 <select (change)="selectTest($event.target.value, 'discovererId')" value="{{changeStars.discovererId}}">
-                  <option>Choose Discoverer</option>
+                  <option value="">Выберите открывателя</option>
                   <option *ngFor="let author of authors;" value="{{author.id}}">{{author.firstName + ' ' + author.lastName}}</option>
                 </select>
-                <!--<select style="width: 100%; height: 35px; text-align: center; border-radius: 5px;">
-              </select>-->
               </div>
             </div>
             <div class="row addNewAuthor" style="display: none; margin-top: 5px">
               <div class="col-lg-6 col-md-6">
-                <input placeholder="First Name" [(ngModel)]="newAuthor.firstName" style="border-color: red;" required>
+                <input placeholder="Имя открывателя" [(ngModel)]="newAuthor.firstName" style="border-color: red;" required>
               </div>
               <div class="col-lg-6 col-md-6">
-                <input placeholder="Last Name" [(ngModel)]="newAuthor.lastName" style="border-color: red; width: 93%" required>
+                <input placeholder="Фамилия открывателя" [(ngModel)]="newAuthor.lastName" style="border-color: red; width: 93%" required>
                 <i (click)="addNewAuthorCancell()" class="fa fa-times"></i>
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-6 col-md-6">Name
+              <div class="col-lg-6 col-md-6">Названия
                 <input value="{{changeStars.name}}" [(ngModel)]="changeStars.name">
               </div>
-              <div class="col-lg-6 col-md-6">Category
+              <div class="col-lg-6 col-md-6">Категория
                 <select (change)="selectTest($event.target.value, 'categoryId')" value="{{changeStars.categoryId}}">
-                  <option>Choose Category</option>
+                  <option value="">Выберите категорию</option>
                   <option *ngFor="let cat of categories;" value="{{cat.id}}">{{cat.name}}</option>
                 </select>
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-6 col-md-6">CoordX
+              <div class="col-lg-6 col-md-6">Координаты X
                 <input value="{{changeStars.coorX}}" [(ngModel)]="changeStars.coorX">
               </div>
-              <div class="col-lg-6 col-md-6">CoordY
+              <div class="col-lg-6 col-md-6">Координаты Y
                 <input value="{{changeStars.coorY}}" [(ngModel)]="changeStars.coorY">
               </div>
+            </div>
+            <div class="row">
+              <p id="error_message" style="color: red; margin-left: 3%; margin-top: 1%"></p>
             </div>
           </div>
         </div>
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" (click)="getTableInfo()" data-dismiss="modal" style="width: 33%">Cancel</button>
-          <button type="button" class="btn btn-info addNewBtn" (click)="addNewAuthorBtns()" style="width: 33%">Add new discoverer</button>
-          <button type="button" class="btn btn-info submitDiscovererBtn" (click)="addAuthor()" style="width: 33%; display: none">Save disc.</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addStar()" style="width: 33%">Save</button>
+          <button type="button" class="btn btn-danger" (click)="getTableInfo()" data-dismiss="modal" style="width: 33%">Отмена</button>
+          <button type="button" class="btn btn-info addNewBtn" (click)="addNewAuthorBtns()" style="width: 33%">Добавить автора</button>
+          <button type="button" class="btn btn-info submitDiscovererBtn" (click)="addAuthor()" style="width: 33%; display: none">Сохранить автора</button>
+          <button type="button" class="btn btn-primary" (click)="addStar()" style="width: 33%">Сохранить</button>
         </div>
       </div>
     </div>
