@@ -4,8 +4,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Http, Headers, Response, RequestOptions} from '@angular/http';
 import {Router} from "@angular/router";
-import {LoginizationService} from "../loginizationService/loginization.service";
-import {LoginFormComponent} from "../../components/login-form/login-form.component";
+import {RequestOptionsArgs} from '@angular/http/src/interfaces';
 
 /**
  * Кастомный сервис для Http-запросов:
@@ -14,12 +13,16 @@ import {LoginFormComponent} from "../../components/login-form/login-form.compone
 @Injectable()
 export class HttpService {
   private _headers = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Authorization': 'Basic ZWxkb3M6cGFzc3dvcmQ='
   };
-  token;
   private _options = new RequestOptions({headers: new Headers(this._headers)});
 
-  get(url:string):Observable<Response> {
+  get(url: string, options?: RequestOptionsArgs):Observable<Response> {
+    if (options != null) {
+      return this.http.get(url,options);
+    }
     return this.http.get(url, this._options);
   }
 
